@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Flask Client Camera Web App</title>
+
+    <style>
+     #video {
+      transform: rotateY(180deg);
+      -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+      -moz-transform:rotateY(180deg); /* Firefox */
+
+     }
+    </style>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <h1>PHYSIOTHERAPY APP</h1>
+      <p>Introducing our revolutionary Physiotherapeutic App, your personalized path to pain relief and rehabilitation. Designed to empower you on your journey to recovery, our app employs cutting-edge technology to create tailored exercise routines that directly address your specific pains and discomforts. By harnessing real-time data and AI analysis, the app meticulously stages your progress, providing accurate insights into the effectiveness of each exercise. With a commitment to precision and your well-being, our app brings the expertise of a physiotherapist right to your fingertips. Regain your vitality and mobility with the future of physiotherapy – all within a few taps. This app will contain joints such as:
+        <ol>
+          <li>ARMS </li>
+          <li>KNEE</li>
+          <li>HIP</li>
+          <li>SHOULDER</li><p>
+    </div>
+    <div>
+      <head>
+        <title>physiotherapy app</title>
+    </head>
+    
+    
+    <h1>Select Your Exercise:</h1>
+    
+    <select id="ExerciseSelect">
+        <option value="Arm">Arm</option>
+        <option value="Knee">Knee</option>
+        <option value="Hip">Hip</option>
+        <option value="Shoulder">Shoulder</option>
+    </select>
+    
+    <div id="videoContainer">
+      <!-- Video will be displayed here -->
+    </div>
+    
+    
+    <p>You selected: <span id="ExerciseSelect"></span></p>
+    <h1>Live streaming</h1>
+<button id ="but" autoplay>
+Open Webcam
+</button>
+<button id ="but2" autoplay>
+  Close Webcam
+  </button>
+  <h3>Excercise</h3>
+    <div id="container">
+      <video autoplay playsinline id="videoElement"></video>
+      <canvas id="canvas" width="600" height="500"></canvas>
+    </div>
+    <div class= 'video'>
+      <img id="photo" width="600" height="500">
+    </div>
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
+
+    <script>
+      const selectEle = document.getElementById('ExerciseSelect');
+      const selectedExerciseEle = document.getElementById('selectedExercise');
+  
+      selectEle.addEventListener('change', function() {
+      selectedExerciseEle.textContent = selectElement.value;
+      });
+  
+   document.getElementById("ExerciseSelect").addEventListener("change", function() {
+        const selectedBodyPart = this.value;
+        const videoContainer = document.getElementById("videoContainer");
+  
+        // Define a dictionary of video sources for each body part
+        const videoSources = {
+            Arm: "../static/arm.mp4",
+            Knee: "../static/squat.mp4",
+            Hip: "../static/hip.mp4",
+            Shoulder: "../static/pushup.mp4"
+        };
+        console.log("Video Source:", videoSources[selectedBodyPart]);
+        videoContainer.innerHTML = `<video width="420" height="340" autoplay>
+            <source src=${videoSources[selectedBodyPart]} type="video/mp4">
+            Your browser does not support the video tag.
+        </video>`;
+    
+  });
+  </script>
+  </body>
+
+</html>
